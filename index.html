@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; }
+  @keyframes riseIn { from { transform:translateY(20px); } to { transform:translateY(0); } }
+  @keyframes blink { 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+  @keyframes growBar { from { transform:scaleY(0); } to { transform:scaleY(1); } }
+  @keyframes drawLine { from { stroke-dashoffset:600; } to { stroke-dashoffset:0; } }
+  @keyframes dotPulse { 0%,100%{opacity:.4;} 50%{opacity:1;} }
+  @keyframes floatY { 0%,100%{transform:translateY(0);} 50%{transform:translateY(7px);} }
+</style>
+</helmet>
+
+<div style="--bg:{{c.bg}}; --bg2:{{c.bg2}}; --card:{{c.card}}; --ink:{{c.ink}}; --muted:{{c.muted}}; --line:{{c.line}}; --accent:{{c.accent}}; --grid:{{c.grid}}; --gridHot:{{c.gridHot}}; --spot:{{c.spot}}; --btnHover:{{c.btnHover}}; --btnHoverInk:{{c.btnHoverInk}}; --barA:{{c.barA}}; --barB:{{c.barB}}; --barC:{{c.barC}}; background:var(--bg,#1e1810); color:var(--ink,#f0e8da); font-family:'Space Grotesk','Noto Sans SC',sans-serif; min-height:100vh; transition:background .45s ease, color .45s ease; overflow-x:hidden;">
+
+  <!-- ===== NAV ===== -->
+  <div style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:18px 40px; background:var(--bg,#1e1810); border-bottom:1px solid var(--line,rgba(240,232,218,.13)); transition:background .45s, border-color .45s;">
+    <a href="#top" style="text-decoration:none; color:inherit; display:flex; align-items:baseline; gap:10px;">
+      <span style="font:700 15px 'Space Mono',monospace; letter-spacing:.06em;">Coded by Theo</span>
+    </a>
+    <div style="display:flex; align-items:center; gap:28px;">
+      <div style="display:flex; gap:22px; font:400 12px 'Space Mono',monospace; letter-spacing:.04em;">
+        <span onClick="{{ goAbout }}" style="cursor:pointer; color:var(--muted,#b3a48d); transition:color .25s;" style-hover="color:var(--ink)">{{ t.navAbout }}</span>
+        <span onClick="{{ goWriting }}" style="cursor:pointer; color:var(--muted,#b3a48d); transition:color .25s;" style-hover="color:var(--ink)">{{ t.navWriting }}</span>
+        <span onClick="{{ goContact }}" style="cursor:pointer; color:var(--muted,#b3a48d); transition:color .25s;" style-hover="color:var(--ink)">{{ t.navContact }}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div style="display:flex; font:400 11px 'Space Mono',monospace; border:1px solid var(--line,rgba(240,232,218,.2)); border-radius:30px; overflow:hidden;">
+          <span onClick="{{ setEn }}" style="padding:5px 11px; cursor:pointer; background:{{ ui.enBg }}; color:{{ ui.enFg }}; transition:.25s;">EN</span>
+          <span onClick="{{ setZh }}" style="padding:5px 11px; cursor:pointer; background:{{ ui.zhBg }}; color:{{ ui.zhFg }}; transition:.25s;">中</span>
+        </div>
+        <span onClick="{{ toggleTheme }}" title="theme" style="width:30px; height:30px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line,rgba(240,232,218,.2)); border-radius:50%; cursor:pointer; font-size:13px; transition:.25s;" style-hover="border-color:var(--accent)">{{ themeIcon }}</span>
+      </div>
+    </div>
+  </div>
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#1e1810"></rect>
+      <text x="50" y="46" font-family="monospace" font-size="13" fill="#c8803a" text-anchor="middle" font-weight="700">吴</text>
+      <text x="50" y="64" font-family="monospace" font-size="8" fill="#b3a48d" text-anchor="middle" letter-spacing="1">WXT</text>
+    </svg>
+  </template>
+
+  <!-- ===== HERO ===== -->
+  <div id="heroWrap" style="position:relative; height:172vh;">
+  <div id="hero" style="position:sticky; top:67px; height:calc(100vh - 67px); transform-origin:top center; will-change:transform, border-radius; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 24px 130px; overflow:hidden; border-radius:0;">
+    <div style="position:absolute; inset:0; background-image:linear-gradient(var(--grid,rgba(240,232,218,.06)) 1px, transparent 1px), linear-gradient(90deg, var(--grid,rgba(240,232,218,.06)) 1px, transparent 1px); background-size:11px 11px;"></div>
+    <canvas id="inkCanvas" style="position:absolute; inset:0; z-index:1; pointer-events:none;"></canvas>
+
+    <svg style="position:absolute; top:64px; right:7%; opacity:.9;" width="170" height="56" viewBox="0 0 170 56" fill="none">
+      <polyline points="0,44 22,28 44,36 66,12 88,24 110,7 132,20 170,4" stroke="var(--accent,#c8803a)" stroke-width="2" fill="none" stroke-dasharray="600" style="animation:drawLine 1.6s ease forwards;"></polyline>
+    </svg>
+
+    <div style="position:relative; z-index:2; max-width:900px;">
+      <div style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a); letter-spacing:.24em; margin-bottom:30px; animation:riseIn .7s cubic-bezier(.2,.7,.2,1) both; animation-delay:.05s;">{{ t.kicker }}</div>
+      <h1 style="margin:0; font:600 clamp(48px,8vw,104px)/0.96 'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.035em;">
+        <span style="display:inline-block; animation:riseIn .8s cubic-bezier(.2,.7,.2,1) both; animation-delay:.14s;">{{ t.h1 }}</span><br>
+        <span style="display:inline-block; font-weight:400; font-style:italic; color:var(--accent,#c8803a); animation:riseIn .8s cubic-bezier(.2,.7,.2,1) both; animation-delay:.28s;">{{ t.h2 }}</span><br>
+        <span style="display:inline-block; animation:riseIn .8s cubic-bezier(.2,.7,.2,1) both; animation-delay:.42s;">{{ t.h3 }}</span>
+      </h1>
+      <p style="max-width:540px; margin:34px auto 0; font:400 15px/1.8 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); animation:riseIn .8s cubic-bezier(.2,.7,.2,1) both; animation-delay:.58s;">{{ t.heroSub }}</p>
+      <div style="margin-top:40px; display:flex; gap:16px; justify-content:center; animation:riseIn .8s cubic-bezier(.2,.7,.2,1) both; animation-delay:.72s;">
+        <span onClick="{{ goContact }}" style="padding:15px 30px; border-radius:40px; background:var(--accent,#c8803a); color:#1e1810; font:700 13px 'Space Mono',monospace; cursor:pointer; display:flex; align-items:center; gap:10px; transition:transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .3s;" style-hover="transform:translateY(-2px); box-shadow:0 0 30px var(--spot,rgba(200,128,58,.5))">{{ t.cta }} <span>→</span></span>
+        <a href="https://github.com/x-tian-lab" target="_blank" rel="noopener" style="text-decoration:none; padding:15px 26px; border-radius:40px; border:1px solid var(--line,rgba(240,232,218,.25)); background:transparent; color:var(--ink,#f0e8da); font:400 13px 'Space Mono',monospace; cursor:pointer; display:flex; align-items:center; gap:10px; transition:transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, background .25s, box-shadow .3s;" style-hover="transform:translateY(-2px); border-color:var(--accent); background:var(--btnHover,#f7f1e6); color:var(--btnHoverInk,inherit); box-shadow:0 0 24px var(--spot,rgba(200,128,58,.4))">GitHub ↗</a>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <div id="about" style="padding:110px 40px 0; border-top:1px solid var(--line,rgba(240,232,218,.13)); display:flex; gap:40px; flex-wrap:wrap; align-items:flex-start;">
+    <div style="flex:1; min-width:340px; max-width:720px;">
+      <div style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a); letter-spacing:.18em; margin-bottom:22px;">01 / {{ t.aboutH }}</div>
+      <h2 style="margin:0 0 28px; font:500 clamp(30px,4vw,46px)/1.15 'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.02em;">{{ t.aboutP1 }}</h2>
+      <p style="margin:0 0 40px; font:400 15px/1.85 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); max-width:520px;">{{ t.aboutP2 }}</p>
+
+      <div style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d); letter-spacing:.16em; margin-bottom:18px;">// {{ t.doH }}</div>
+      <div style="display:flex; flex-direction:column; gap:1px; background:var(--line,rgba(240,232,218,.13)); border:1px solid var(--line,rgba(240,232,218,.13)); border-radius:4px; overflow:hidden;">
+        <div style="background:var(--bg,#1e1810); padding:20px 22px; display:flex; gap:20px; align-items:baseline; transition:background .25s;" style-hover="background:var(--bg2)">
+          <span style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a);">A1</span>
+          <div><div style="font:600 17px 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.do1 }}</div><div style="font:400 13px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:5px;">{{ t.do1d }}</div></div>
+        </div>
+        <div style="background:var(--bg,#1e1810); padding:20px 22px; display:flex; gap:20px; align-items:baseline; transition:background .25s;" style-hover="background:var(--bg2)">
+          <span style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a);">A2</span>
+          <div><div style="font:600 17px 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.do2 }}</div><div style="font:400 13px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:5px;">{{ t.do2d }}</div></div>
+        </div>
+        <div style="background:var(--bg,#1e1810); padding:20px 22px; display:flex; gap:20px; align-items:baseline; transition:background .25s;" style-hover="background:var(--bg2)">
+          <span style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a);">A3</span>
+          <div><div style="font:600 17px 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.do3 }}</div><div style="font:400 13px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:5px;">{{ t.do3d }}</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="width:100%; order:3; text-align:center; margin-top:0; padding:14px 0; border-top:1px dashed var(--line,rgba(240,232,218,.16)); font:400 11px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.04em; display:flex; align-items:center; justify-content:center; gap:8px;"><span style="color:var(--accent,#c8803a); font-size:12px;">☕</span>{{ t.coffee }}</div>
+
+    <!-- data panel -->
+    <div style="width:380px; flex-shrink:0; background:var(--card,#272018); border:1px solid var(--line,rgba(240,232,218,.13)); border-radius:6px; padding:30px; position:relative; transition:background .45s;">
+      <div style="position:absolute; inset:0; background-image:linear-gradient(var(--grid,rgba(240,232,218,.05)) 1px, transparent 1px); background-size:100% 38px; border-radius:6px;"></div>
+      <div style="position:relative; font:400 11px 'Space Mono',monospace; color:var(--muted,#b3a48d); display:flex; justify-content:space-between; letter-spacing:.1em;">{{ t.sigLabel }}<span style="color:var(--accent,#c8803a);">↻</span></div>
+      <div style="position:relative; display:flex; align-items:flex-end; gap:9px; height:150px; margin:18px 0 22px;">
+        <div style="flex:1; height:42%; background:var(--barA,#3a2f20); transform-origin:bottom; animation:growBar .7s ease forwards .15s;"></div>
+        <div style="flex:1; height:70%; background:var(--barB,#7a5a34); transform-origin:bottom; animation:growBar .7s ease forwards .27s;"></div>
+        <div style="flex:1; height:54%; background:var(--barA,#3a2f20); transform-origin:bottom; animation:growBar .7s ease forwards .39s;"></div>
+        <div style="flex:1; height:92%; background:var(--barC,#c8803a); transform-origin:bottom; animation:growBar .7s ease forwards .51s;"></div>
+        <div style="flex:1; height:60%; background:var(--barA,#3a2f20); transform-origin:bottom; animation:growBar .7s ease forwards .63s;"></div>
+        <div style="flex:1; height:78%; background:var(--barB,#7a5a34); transform-origin:bottom; animation:growBar .7s ease forwards .75s;"></div>
+      </div>
+      <div style="position:relative; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line,rgba(240,232,218,.13)); border:1px solid var(--line,rgba(240,232,218,.13)); border-radius:4px; overflow:hidden;">
+        <div style="background:var(--card,#272018); padding:16px;"><div style="font:700 22px 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.stat1 }}</div><div style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:4px; letter-spacing:.06em;">{{ t.stat1l }}</div></div>
+        <div style="background:var(--card,#272018); padding:16px;"><div style="font:700 26px 'Space Grotesk',sans-serif; color:var(--accent,#c8803a);">{{ t.stat2 }}</div><div style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:4px; letter-spacing:.06em;">{{ t.stat2l }}</div></div>
+        <div style="background:var(--card,#272018); padding:16px;"><div style="font:700 26px 'Space Grotesk',sans-serif;">{{ t.stat3 }}</div><div style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:4px; letter-spacing:.06em;">{{ t.stat3l }}</div></div>
+        <div style="background:var(--card,#272018); padding:16px;"><div style="font:700 26px 'Space Grotesk',sans-serif; color:var(--accent,#c8803a);">{{ t.stat4 }}</div><div style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); margin-top:4px; letter-spacing:.06em;">{{ t.stat4l }}</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WRITING ===== -->
+  <div id="writing" style="padding:110px 40px; border-top:1px solid var(--line,rgba(240,232,218,.13));">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:48px;">
+      <div>
+        <div style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a); letter-spacing:.18em; margin-bottom:18px;">02 / {{ t.navWriting }}</div>
+        <h2 style="margin:0; font:500 clamp(34px,5vw,58px)/1 'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.025em;">{{ t.writeH }}</h2>
+      </div>
+      <span style="display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border:1px solid var(--accent,#c8803a); border-radius:30px; font:400 11px 'Space Mono','Noto Sans SC',monospace; color:var(--accent,#c8803a); letter-spacing:.06em;"><span style="width:6px; height:6px; border-radius:50%; background:var(--accent,#c8803a); animation:dotPulse 2s infinite;"></span>{{ t.soon }}</span>
+    </div>
+    <p style="margin:0 0 40px; max-width:560px; font:400 15px/1.8 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d);">{{ t.writeNote }}</p>
+
+    <div style="border-top:1px solid var(--line,rgba(240,232,218,.13));">
+      <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:default; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
+        <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">01</span>
+        <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic1 }}</span>
+        <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.1em;">{{ t.plan }}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:default; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
+        <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">02</span>
+        <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic2 }}</span>
+        <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.1em;">{{ t.plan }}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:default; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
+        <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">03</span>
+        <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic3 }}</span>
+        <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.1em;">{{ t.plan }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CONTACT ===== -->
+  <div id="contact" style="padding:120px 40px 90px; border-top:1px solid var(--line,rgba(240,232,218,.13)); position:relative; overflow:hidden;">
+    <div style="position:absolute; inset:0; background-image:radial-gradient(var(--grid,rgba(240,232,218,.05)) 1.3px, transparent 1.3px); background-size:32px 32px;"></div>
+    <div style="position:relative; max-width:900px; margin:0 auto; text-align:center;">
+      <div style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a); letter-spacing:.2em; margin-bottom:26px;">03 / {{ t.navContact }}</div>
+      <h2 style="margin:0; font:600 clamp(40px,7vw,86px)/1 'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.03em;">{{ t.contactH1 }}<br><span style="color:var(--accent,#c8803a); font-style:italic; font-weight:400;">{{ t.contactH2 }}</span></h2>
+      <p style="max-width:480px; margin:30px auto 46px; font:400 15px/1.8 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d);">{{ t.contactSub }}</p>
+      <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+        <a href="https://github.com/x-tian-lab" target="_blank" rel="noopener" style="text-decoration:none; padding:16px 28px; border-radius:8px; background:var(--accent,#c8803a); color:#1e1810; font:700 13px 'Space Mono',monospace; cursor:pointer; transition:transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .3s;" style-hover="transform:translateY(-2px); box-shadow:0 0 30px var(--spot,rgba(200,128,58,.5))">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/xiaotian-wu-b5b614381/" target="_blank" rel="noopener" style="text-decoration:none; padding:16px 28px; border-radius:8px; border:1px solid var(--line,rgba(240,232,218,.25)); color:var(--ink,#f0e8da); font:400 13px 'Space Mono',monospace; cursor:pointer; transition:transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .3s;" style-hover="transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 24px var(--spot,rgba(200,128,58,.4))">LinkedIn ↗</a>
+        <span title="coming soon" style="padding:16px 28px; border-radius:8px; border:1px dashed var(--line,rgba(240,232,218,.25)); color:var(--muted,#b3a48d); font:400 13px 'Space Mono','Noto Sans SC',monospace; cursor:not-allowed;">{{ t.linkBlog }} · {{ t.soon }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:26px 40px; border-top:1px solid var(--line,rgba(240,232,218,.13)); font:400 11px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.05em;">
+    <span>COPYRIGHT ©Theo wu <span style="color:var(--accent,#c8803a);">v1.0</span> <span style="color:var(--muted,#b3a48d);">( ˶ˆ ³ˆ˶ )</span></span>
+    <span>{{ t.footTag }}</span>
+    <a href="#top" style="text-decoration:none; color:var(--muted,#b3a48d); transition:color .25s;" style-hover="color:var(--accent)">BACK TO TOP ↑</a>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860}}">
+class Component extends DCLogic {
+  state = { theme: 'dark', lang: 'en' };
+
+  componentDidMount() {
+    this.points = [];
+    const hero = document.getElementById('hero');
+    const canvas = document.getElementById('inkCanvas');
+    if (!hero || !canvas) return;
+    const ctx = canvas.getContext('2d');
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = hero.clientWidth * dpr;
+      canvas.height = hero.clientHeight * dpr;
+      canvas.style.width = hero.clientWidth + 'px';
+      canvas.style.height = hero.clientHeight + 'px';
+    };
+    resize();
+    this._resize = resize;
+    window.addEventListener('resize', resize);
+
+    this._onMove = (e) => {
+      const r = hero.getBoundingClientRect();
+      if (e.clientY < r.top || e.clientY > r.bottom) return;
+      const sc = r.width / hero.clientWidth || 1;          // undo the scroll-scale so ink tracks the cursor
+      const x = (e.clientX - r.left) / sc, y = (e.clientY - r.top) / sc;
+      const pts = this.points;
+      const last = pts[pts.length - 1];
+      if (last && Math.hypot(x - last.x, y - last.y) < 2.2) { last.t = performance.now(); return; }
+      pts.push({ x, y, t: performance.now() });
+      if (pts.length > 400) pts.shift();
+    };
+    window.addEventListener('mousemove', this._onMove);
+
+    const MAXAGE = 1700; // ms — strokes fade over time
+    const hexToRgb = (h) => {
+      h = (h || '#c8803a').trim().replace('#', '');
+      if (h.length === 3) h = h.split('').map(c => c + c).join('');
+      const n = parseInt(h, 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    };
+
+    // Catmull-Rom interpolation between p1 and p2 (p0/p3 are neighbours), carrying timestamp
+    const cr = (p0, p1, p2, p3, t) => {
+      const t2 = t * t, t3 = t2 * t;
+      return {
+        x: 0.5 * (2 * p1.x + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+        y: 0.5 * (2 * p1.y + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3),
+        t: p1.t + (p2.t - p1.t) * t
+      };
+    };
+
+    const wrap = document.getElementById('heroWrap');
+    const ease = (x) => 1 - Math.pow(1 - x, 3);
+    const updateShrink = () => {
+      if (!wrap) return;
+      const room = wrap.offsetHeight - (window.innerHeight - 67);
+      const scrolled = 67 - wrap.getBoundingClientRect().top;     // works regardless of scroll container
+      const p = Math.min(1, Math.max(0, scrolled / Math.max(1, room)));
+      const e = ease(p);
+      hero.style.transform = 'scale(' + (1 - 0.16 * e) + ')';
+      hero.style.borderRadius = (30 * e) + 'px';
+      hero.style.boxShadow = e > 0.02 ? '0 30px 80px rgba(20,14,6,' + (0.18 * e).toFixed(3) + ')' : 'none';
+    };
+
+    const loop = () => {
+      const now = performance.now();
+      updateShrink();
+      const w = hero.clientWidth, h = hero.clientHeight;
+      const maxLen = Math.hypot(w, h) / 4; // a single stroke spans at most 1/4 of the page
+
+      // drop ink older than MAXAGE, then cap the trail to maxLen measured back from the pen tip
+      let pts = this.points.filter(p => now - p.t < MAXAGE);
+      this.points = pts;
+      if (pts.length > 1) {
+        let acc = 0;
+        const kept = [pts[pts.length - 1]];
+        for (let i = pts.length - 1; i > 0; i--) {
+          const seg = Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+          if (acc + seg > maxLen) {
+            const f = (maxLen - acc) / seg; // interpolate a clean tail endpoint
+            kept.unshift({ x: pts[i].x + (pts[i - 1].x - pts[i].x) * f, y: pts[i].y + (pts[i - 1].y - pts[i].y) * f, t: pts[i].t + (pts[i - 1].t - pts[i].t) * f });
+            break;
+          }
+          acc += seg;
+          kept.unshift(pts[i - 1]);
+        }
+        pts = kept;
+      }
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      if (pts.length < 2) { this._raf = requestAnimationFrame(loop); return; }
+
+      // resample the polyline into a dense, smooth curve so it reads as one continuous brush stroke
+      const dense = [];
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || pts[i + 1];
+        const segLen = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        const steps = Math.max(2, Math.ceil(segLen / 3));
+        for (let s = 0; s < steps; s++) dense.push(cr(p0, p1, p2, p3, s / steps));
+      }
+      dense.push(pts[pts.length - 1]);
+
+      // arc length from the tail so density/width can taper smoothly toward the pen tip
+      let total = 0;
+      const arc = [0];
+      for (let i = 1; i < dense.length; i++) { total += Math.hypot(dense[i].x - dense[i - 1].x, dense[i].y - dense[i - 1].y); arc.push(total); }
+      if (total < 0.5) { this._raf = requestAnimationFrame(loop); return; }
+
+      const [r, g, b] = hexToRgb(getComputedStyle(hero).getPropertyValue('--accent'));
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      for (let i = 1; i < dense.length; i++) {
+        const a = dense[i - 1], pt = dense[i];
+        const s = arc[i] / total;                                   // 0 = tail, 1 = pen tip
+        const ageF = Math.max(0, 1 - (now - pt.t) / MAXAGE);        // fades as the ink dries
+        const taper = Math.pow(s, 0.7);                             // denser & thicker near the tip
+        const alpha = Math.min(1, ageF * (0.12 + 0.88 * taper));
+        if (alpha <= 0.012) continue;
+        ctx.strokeStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+        ctx.lineWidth = 1.1 + taper * 6.5;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(pt.x, pt.y);
+        ctx.stroke();
+      }
+      this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this._onMove);
+    window.removeEventListener('resize', this._resize);
+    cancelAnimationFrame(this._raf);
+  }
+
+  go(id) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: 'smooth' });
+  }
+
+  renderVals() {
+    const dark = this.state.theme === 'dark';
+    const c = dark ? {
+      bg:'#1e1810', bg2:'#272018', card:'#272018', ink:'#f0e8da', muted:'#b3a48d',
+      line:'rgba(240,232,218,.13)', accent:'#c8803a', grid:'rgba(240,232,218,.06)',
+      gridHot:'rgba(200,128,58,.55)', spot:'rgba(200,128,58,.35)', btnHover:'#f4ecdd', btnHoverInk:'#1e1810', barA:'#3a2f20', barB:'#7a5a34', barC:'#c8803a'
+    } : {
+      bg:'#f3ede2', bg2:'#ebe2d2', card:'#ebe2d2', ink:'#221c14', muted:'#6e6151',
+      line:'#ddd2bf', accent:'#b5692a', grid:'rgba(34,28,14,.05)',
+      gridHot:'rgba(181,105,42,.42)', spot:'rgba(181,105,42,.2)', btnHover:'#fbf6ec', btnHoverInk:'#221c14', barA:'#cdbfa6', barB:'#c2935f', barC:'#b5692a'
+    };
+
+    const en = {
+      navAbout:'About', navWriting:'Blog', navContact:'Contact',
+      kicker:'AI PRODUCT DESIGNER  ·  DATA ANALYST',
+      h1:'Designing', h2:'intelligence,', h3:'made legible.',
+      heroSub:'I turn complex model capabilities into products people understand, trust, and actually use — with data behind every decision.',
+      cta:"Let's talk", scrollHint:'SCROLL',
+      aboutH:'ABOUT',
+      aboutP1:"AI explorer, working where product design, frontend engineering, and data analysis meet.",
+      aboutP2:"My approach is simple: let data reveal what people need, let design make the model's power legible, and let clean frontend bring it to life.",
+      doH:'WHAT I DO',
+      do1:'AI Product Design', do1d:'Interfaces that make AI calm, honest, human.',
+      do2:'Frontend Engineering', do2d:'React & Design Components, built to ship.',
+      do3:'Data Analysis & Viz', do3d:'From raw data to decisions and stories.',
+      sigLabel:'// SIGNAL',
+      stat1:'AI MSc', stat1l:'In progress', stat2:'3', stat2l:'Disciplines',
+      stat3:'SH', stat3l:'Shanghai', stat4:'∞', stat4l:'Curiosity',
+      writeH:'Blog',
+      writeNote:'My tech blog is launching soon — field notes on AI design, frontend craft, and data.',
+      soon:'Coming soon', plan:'PLANNED',
+      topic1:'Designing trust into AI interfaces',
+      topic2:'From notebooks to product: data viz that ships',
+      topic3:'Frontend as a design material',
+      contactH1:"Let's build", contactH2:'something good.',
+      contactSub:'Open to AI product design & data roles, collaborations, and good conversations.',
+      linkBlog:'Tech Blog', footTag:'Designed & built by Theo',
+      coffee:"If you happen to be in Shanghai, let's grab a coffee."
+    };
+    const zh = {
+      navAbout:'关于我', navWriting:'技术博客', navContact:'联系',
+      kicker:'大模型应用  ·  数据分析',
+      h1:'让智能', h2:'变得清晰', h3:'人人可用',
+      heroSub:'把复杂的 AI 能力，做成真正用得上的产品。',
+      cta:'聊一聊', scrollHint:'向下',
+      aboutH:'关于',
+      aboutP1:'AI 探索者 —— 站在大模型应用、数据分析与产品思维的交叉点。',
+      aboutP2:'数据推动决策，大模型部署产品。',
+      doH:'我做什么',
+      do1:'大模型工具研究', do1d:'跟踪、测试、整合主流 LLM 工具链，找到实际落地的方式。',
+      do2:'AI 产品原型', do2d:'从需求到可演示的 demo，用低代码与现有模型能力快速验证。',
+      do3:'数据分析与可视化', do3d:'从原始数据到决策与故事。',
+      sigLabel:'// 信号',
+      stat1:'TOP商校', stat1l:'ai硕士', stat2:'3', stat2l:'交叉领域',
+      stat3:'SH', stat3l:'上海', stat4:'∞', stat4l:'好奇心',
+      writeH:'技术博客',
+      writeNote:'技术博客即将上线 —— 关于 AI 产品、LLM 工具的笔记。',
+      soon:'即将上线', plan:'计划中',
+      topic1:'把信任设计进 AI 界面',
+      topic2:'从 Notebook 到产品：能上线的数据可视化',
+      topic3:'把前端当作一种设计材料',
+      contactH1:'一起做点', contactH2:'好东西',
+      contactSub:'对 AI 产品设计、数据相关的工作与合作开放，欢迎交流。',
+      linkBlog:'技术博客', footTag:'Theo 设计与开发',
+      coffee:'如果你也在上海，一起喝杯咖啡吧。'
+    };
+
+    const t = this.state.lang === 'en' ? en : zh;
+    const enOn = this.state.lang === 'en';
+    const ui = {
+      enBg: enOn ? c.accent : 'transparent',
+      enFg: enOn ? (dark ? '#1e1810' : '#f3ede2') : c.muted,
+      zhBg: !enOn ? c.accent : 'transparent',
+      zhFg: !enOn ? (dark ? '#1e1810' : '#f3ede2') : c.muted
+    };
+
+    return {
+      c, t, ui,
+      themeIcon: dark ? '☀' : '☾',
+      setEn: () => this.setState({ lang: 'en' }),
+      setZh: () => this.setState({ lang: 'zh' }),
+      toggleTheme: () => this.setState((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
+      goAbout: () => this.go('about'),
+      goWriting: () => this.go('writing'),
+      goContact: () => this.go('contact')
+    };
+  }
+}
+</script>
+</body>
+</html>
