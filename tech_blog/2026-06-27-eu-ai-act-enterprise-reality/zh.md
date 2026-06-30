@@ -4,6 +4,9 @@ date: 2026-06-27
 lang: zh
 tags: [EU-AI-Act, 企业AI治理, Shadow-AI, 合规, AI风险]
 description: "EU AI Act 458 页条文可以读懂；真正让人措手不及的，是法规假设企业对 AI 使用有完整掌控，而实际上 IT 团队对最关键的那一层是结构性盲区。"
+heroImage: "images/hero.jpg"
+heroImageAlt: "欧洲议会 Paul Henri-Spaak 大楼外立面，布鲁塞尔"
+heroImageCredit: "Photo by Guillaume Périgois on Unsplash"
 draft: false
 slug: eu-ai-act-enterprise-reality
 primary_keyword: "EU AI Act 企业合规"

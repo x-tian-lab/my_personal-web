@@ -4,6 +4,9 @@ date: 2026-06-30
 lang: en
 tags: [transformer, deep-learning, AI-architecture, retrospective]
 description: "180,000 citations and eight years later, re-reading the original reveals something surprising: two wrong predictions, one spectacularly lucky bet, and several structural problems quietly left unresolved."
+heroImage: "images/hero.jpg"
+heroImageAlt: "Nvidia RTX 2060 GPU close-up"
+heroImageCredit: "Photo by Christian Wiediger on Unsplash"
 draft: false
 slug: attention-is-all-you-need-eight-years-later
 primary_keyword: "Attention Is All You Need retrospective"

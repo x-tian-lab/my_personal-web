@@ -4,6 +4,9 @@ date: 2026-06-30
 lang: en
 tags: [scaling-laws, LLM, deep-learning, Kaplan, Chinchilla]
 description: "Kaplan 2020 built the framework. Chinchilla 2022 revised its core allocation rule. LLaMA 3 8B then used 94× the Chinchilla-optimal token count — deliberately, and correctly, because it was optimizing for a different objective entirely."
+heroImage: "images/hero.jpg"
+heroImageAlt: "Close-up of server cooling fans in a data center"
+heroImageCredit: "Photo by Winston Chen on Unsplash"
 draft: false
 slug: what-scaling-laws-actually-said
 primary_keyword: "neural language model scaling laws"

@@ -4,6 +4,9 @@ date: 2026-06-27
 lang: en
 tags: [EU-AI-Act, enterprise-AI, shadow-AI, compliance, AI-governance]
 description: "The regulation is 458 pages and largely navigable. What it doesn't prepare you for is the gap between what it assumes about enterprise AI and how enterprise AI actually works — and that gap is where the compliance risk lives."
+heroImage: "images/hero.jpg"
+heroImageAlt: "Facade of the European Parliament Paul Henri-Spaak building, Brussels"
+heroImageCredit: "Photo by Guillaume Périgois on Unsplash"
 draft: false
 slug: eu-ai-act-enterprise-reality
 primary_keyword: "EU AI Act enterprise compliance"

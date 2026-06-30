@@ -4,6 +4,9 @@ date: 2026-06-30
 lang: zh
 tags: [Scaling-Laws, LLM, 深度学习, Kaplan, Chinchilla]
 description: "中文 AI 圈习惯引用 Scaling Laws，却很少认真读这篇论文。GPT-3 只用了 Chinchilla 最优数据量的十分之一；LLaMA 3 8B 超出最优 94 倍——两个决策都是对的，只是在优化不同的目标。"
+heroImage: "images/hero.jpg"
+heroImageAlt: "数据中心服务器机架冷却风扇特写"
+heroImageCredit: "Photo by Winston Chen on Unsplash"
 draft: false
 slug: what-scaling-laws-actually-said
 primary_keyword: "Scaling Laws 论文"

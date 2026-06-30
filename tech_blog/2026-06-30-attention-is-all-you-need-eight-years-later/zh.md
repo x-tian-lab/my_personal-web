@@ -4,6 +4,9 @@ date: 2026-06-30
 lang: zh
 tags: [Transformer, 深度学习, AI架构, 技术回顾]
 description: "论文发表八年、引用 18 万次——但如果你现在读原文，会发现作者对几件关键的事判断错了，而那些错误恰恰解释了今天 AI 架构的走向。"
+heroImage: "images/hero.jpg"
+heroImageAlt: "Nvidia RTX 2060 GPU 显卡特写"
+heroImageCredit: "Photo by Christian Wiediger on Unsplash"
 draft: false
 slug: attention-is-all-you-need-eight-years-later
 primary_keyword: "Attention Is All You Need 八年 回顾"
