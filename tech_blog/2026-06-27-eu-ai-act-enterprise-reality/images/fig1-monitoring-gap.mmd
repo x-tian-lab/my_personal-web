@@ -1,0 +1,24 @@
+flowchart LR
+    subgraph V["✅ VISIBLE TO IT"]
+        direction TB
+        V1["Network requests\nWhich URLs employees visit"]
+        V2["SaaS authentication\nWhich tools are authorized"]
+        V3["File transfers\nUploads to external storage"]
+        V4["Browser activity logs\nSession timing & duration"]
+    end
+
+    AL(["⬡ AI LAYER\n↕ ↕ ↕ ↕"])
+
+    subgraph I["❌ INVISIBLE TO IT"]
+        direction TB
+        I1["ChatGPT input content\nWhat data flows into the prompt"]
+        I2["AI-generated outputs\nContent produced by the model"]
+        I3["Data transformations\nConfidential info → AI output"]
+        I4["Model data processing\nWhere & how data is retained"]
+    end
+
+    V --> AL --> I
+
+    style V fill:#ECFDF5,stroke:#059669,color:#065F46
+    style I fill:#FFF1F2,stroke:#DC2626,color:#991B1B
+    style AL fill:#EEF2FF,stroke:#6366F1,color:#4338CA

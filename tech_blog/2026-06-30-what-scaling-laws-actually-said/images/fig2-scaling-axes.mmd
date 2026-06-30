@@ -1,0 +1,28 @@
+flowchart LR
+    subgraph Era1["2020–2022: Pretraining Compute Scaling"]
+        direction TB
+        A1["Kaplan 2020\nScale parameters\nfaster than data"]
+        A2["Power-law: L ∝ C^-0.050\nSmooth, predictable\nacross 7 orders of magnitude"]
+        A1 --> A2
+    end
+
+    subgraph Era2["2022–2023: Token Efficiency Revision"]
+        direction TB
+        B1["Chinchilla 2022\nEqual param/data scaling\n20 tokens/param rule"]
+        B2["Deployment gap emerges:\ntraining-optimal ≠ serving-optimal\nInference cost dominates at scale"]
+        B1 --> B2
+    end
+
+    subgraph Era3["2024–present: Inference-Time Scaling"]
+        direction TB
+        C1["o1 / R1 / Gemini Thinking\nScale compute at inference\nvia chain-of-thought"]
+        C2["New axis: test-time compute\nDifferent cost structure\nDifferent saturation point\nScaling laws TBD"]
+        C1 --> C2
+    end
+
+    Era1 --> Era2
+    Era2 --> Era3
+
+    style Era1 fill:#EFF6FF,stroke:#93C5FD,color:#1E3A8A
+    style Era2 fill:#FEF9C3,stroke:#FDE047,color:#713F12
+    style Era3 fill:#F0FDF4,stroke:#86EFAC,color:#14532D

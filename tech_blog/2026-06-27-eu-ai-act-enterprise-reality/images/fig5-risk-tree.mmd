@@ -1,0 +1,19 @@
+flowchart TD
+    ROOT["Same LLM Tool\ne.g. GPT-4 or Claude"]
+
+    ROOT --> U1["Used for:\nInternal document summarisation"]
+    ROOT --> U2["Used for:\nHR candidate screening"]
+    ROOT --> U3["Used for:\nInvestment decision support"]
+
+    U1 --> R1["✅ Minimal Risk\nNo Annex III obligations"]
+    U2 --> R2["⚠️ High Risk — Annex III\nFull conformity assessment required"]
+    U3 --> R3["⚠️ High Risk — Annex III\nFull conformity assessment required"]
+
+    NOTE["The compliance question is not\n'what tool is this?'\nbut 'what is this tool being used for\nin this department?'"]
+    R1 & R2 & R3 --> NOTE
+
+    style ROOT fill:#1E3A5F,stroke:#1E3A5F,color:#fff
+    style R1 fill:#D1FAE5,stroke:#059669,color:#065F46
+    style R2 fill:#FEE2E2,stroke:#DC2626,color:#991B1B
+    style R3 fill:#FEE2E2,stroke:#DC2626,color:#991B1B
+    style NOTE fill:#FFF7ED,stroke:#FED7AA,color:#92400E

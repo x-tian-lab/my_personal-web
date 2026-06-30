@@ -1,0 +1,25 @@
+flowchart LR
+    subgraph M["Manual Process — DPO, 3 Weeks"]
+        direction TB
+        M1["Regulation scope: EU AI Act only"]
+        M2["Output format: spreadsheet"]
+        M3["Regulatory citations: none"]
+        M4["Data sovereignty map: none"]
+        M5["❌ Not audit-ready"]
+        M1 --> M2 --> M3 --> M4 --> M5
+    end
+
+    subgraph A["ComplianceIQ — Automated"]
+        direction TB
+        A1["EU AI Act + GDPR + DORA simultaneously"]
+        A2["ISO/IEC 42001:2023-aligned documentation"]
+        A3["Auto citation mapping per tool & jurisdiction"]
+        A4["Sub-processor geography mapped\n1 tool flagged: unconfirmed EU residency"]
+        A5["✅ Regulator-ready"]
+        A1 --> A2 --> A3 --> A4 --> A5
+    end
+
+    style M fill:#FEF2F2,stroke:#FECACA,color:#991B1B
+    style A fill:#F0FDF4,stroke:#A7F3D0,color:#065F46
+    style M5 fill:#FEE2E2,stroke:#DC2626
+    style A5 fill:#D1FAE5,stroke:#059669

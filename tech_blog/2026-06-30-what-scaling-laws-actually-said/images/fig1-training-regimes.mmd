@@ -1,0 +1,29 @@
+flowchart TD
+    Q["What are you optimizing for?"]
+
+    Q --> T["Minimize loss\nfor fixed training compute\n(Kaplan 2020 / Chinchilla 2022)"]
+    Q --> D["Minimize serving cost\nfor fixed inference quality\n(Meta LLaMA 3 approach)"]
+
+    T --> K["Kaplan 2020\nN_opt ∝ C^0.73\nScale params faster than data"]
+    T --> Ch["Chinchilla 2022\nN_opt ∝ C^0.50\nEqual param/data scaling\n~20 tokens per parameter"]
+
+    K --> GPT3["GPT-3\n175B params / ~300B tokens\n~1.7 tokens/param\n(Kaplan-optimal)"]
+    Ch --> Chin["Chinchilla model\n70B params / 1.4T tokens\n20 tokens/param\n(Chinchilla-optimal)"]
+
+    D --> L3["LLaMA 3 8B\n8B params / 15T tokens\n1,875 tokens/param\n~94× over Chinchilla-optimal"]
+
+    GPT3 --> Note1["Under Chinchilla: 10× undertrained\nCould use 3.5T tokens for same cost"]
+    Chin --> Note2["Training-optimal baseline\nbut not deployment-optimal"]
+    L3 --> Note3["Higher training cost, once\nLower serving cost, forever\nat production scale"]
+
+    style Q fill:#1E3A5F,stroke:#1E3A5F,color:#fff
+    style T fill:#EFF6FF,stroke:#93C5FD,color:#1E3A8A
+    style D fill:#F0FDF4,stroke:#86EFAC,color:#14532D
+    style K fill:#FEF9C3,stroke:#FDE047,color:#713F12
+    style Ch fill:#FEF9C3,stroke:#FDE047,color:#713F12
+    style L3 fill:#D1FAE5,stroke:#059669,color:#065F46
+    style GPT3 fill:#FEFCE8,stroke:#FDE047,color:#713F12
+    style Chin fill:#FEFCE8,stroke:#FDE047,color:#713F12
+    style Note1 fill:#FEE2E2,stroke:#FCA5A5,color:#991B1B
+    style Note2 fill:#FEF9C3,stroke:#FDE047,color:#713F12
+    style Note3 fill:#D1FAE5,stroke:#6EE7B7,color:#065F46
