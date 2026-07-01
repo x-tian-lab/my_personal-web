@@ -136,26 +136,32 @@
         <div style="font:400 12px 'Space Mono',monospace; color:var(--accent,#c8803a); letter-spacing:.18em; margin-bottom:18px;">02 / {{ t.navWriting }}</div>
         <h2 style="margin:0; font:500 clamp(34px,5vw,58px)/1 'Space Grotesk','Noto Sans SC',sans-serif; letter-spacing:-.025em;">{{ t.writeH }}</h2>
       </div>
-      <span style="display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border:1px solid var(--accent,#c8803a); border-radius:30px; font:400 11px 'Space Mono','Noto Sans SC',monospace; color:var(--accent,#c8803a); letter-spacing:.06em;"><span style="width:6px; height:6px; border-radius:50%; background:var(--accent,#c8803a); animation:dotPulse 2s infinite;"></span>{{ t.soon }}</span>
+      <a href="/blog/" style="display:inline-flex; align-items:center; gap:8px; padding:7px 18px; border:1px solid var(--accent,#c8803a); border-radius:30px; font:400 11px 'Space Mono','Noto Sans SC',monospace; color:var(--accent,#c8803a); letter-spacing:.06em; text-decoration:none; transition:.2s;" style-hover="background:var(--accent,#c8803a); color:#1e1810;">{{ t.allPosts }} →</a>
     </div>
     <p style="margin:0 0 40px; max-width:560px; font:400 15px/1.8 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d);">{{ t.writeNote }}</p>
 
     <div style="border-top:1px solid var(--line,rgba(240,232,218,.13));">
-      <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:default; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
-        <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">01</span>
-        <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic1 }}</span>
-        <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.1em;">{{ t.plan }}</span>
-      </div>
-      <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:default; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
-        <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">02</span>
-        <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic2 }}</span>
-        <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.1em;">{{ t.plan }}</span>
-      </div>
-      <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:default; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
-        <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">03</span>
-        <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic3 }}</span>
-        <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--muted,#b3a48d); letter-spacing:.1em;">{{ t.plan }}</span>
-      </div>
+      <a href="{{ t.topicUrl1 }}" style="text-decoration:none; color:inherit; display:block;">
+        <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:pointer; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
+          <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">01</span>
+          <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic1 }}</span>
+          <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--accent,#c8803a); letter-spacing:.1em;">{{ t.plan }}</span>
+        </div>
+      </a>
+      <a href="{{ t.topicUrl2 }}" style="text-decoration:none; color:inherit; display:block;">
+        <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:pointer; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
+          <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">02</span>
+          <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic2 }}</span>
+          <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--accent,#c8803a); letter-spacing:.1em;">{{ t.plan }}</span>
+        </div>
+      </a>
+      <a href="{{ t.topicUrl3 }}" style="text-decoration:none; color:inherit; display:block;">
+        <div style="display:flex; align-items:center; gap:24px; padding:26px 4px; border-bottom:1px solid var(--line,rgba(240,232,218,.13)); cursor:pointer; transition:padding-left .3s, background .25s;" style-hover="padding-left:14px">
+          <span style="font:400 12px 'Space Mono',monospace; color:var(--muted,#b3a48d);">03</span>
+          <span style="flex:1; font:500 clamp(18px,2.4vw,26px) 'Space Grotesk','Noto Sans SC',sans-serif;">{{ t.topic3 }}</span>
+          <span style="font:400 10px 'Space Mono','Noto Sans SC',monospace; color:var(--accent,#c8803a); letter-spacing:.1em;">{{ t.plan }}</span>
+        </div>
+      </a>
     </div>
   </div>
 
@@ -169,7 +175,7 @@
       <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
         <a href="https://github.com/x-tian-lab" target="_blank" rel="noopener" style="text-decoration:none; padding:16px 28px; border-radius:8px; background:var(--accent,#c8803a); color:#1e1810; font:700 13px 'Space Mono',monospace; cursor:pointer; transition:transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .3s;" style-hover="transform:translateY(-2px); box-shadow:0 0 30px var(--spot,rgba(200,128,58,.5))">GitHub ↗</a>
         <a href="https://www.linkedin.com/in/xiaotian-wu-b5b614381/" target="_blank" rel="noopener" style="text-decoration:none; padding:16px 28px; border-radius:8px; border:1px solid var(--line,rgba(240,232,218,.25)); color:var(--ink,#f0e8da); font:400 13px 'Space Mono',monospace; cursor:pointer; transition:transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .3s;" style-hover="transform:translateY(-2px); border-color:var(--accent); box-shadow:0 0 24px var(--spot,rgba(200,128,58,.4))">LinkedIn ↗</a>
-        <span title="coming soon" style="padding:16px 28px; border-radius:8px; border:1px dashed var(--line,rgba(240,232,218,.25)); color:var(--muted,#b3a48d); font:400 13px 'Space Mono','Noto Sans SC',monospace; cursor:not-allowed;">{{ t.linkBlog }} · {{ t.soon }}</span>
+        <a href="/blog/" style="text-decoration:none; padding:16px 28px; border-radius:8px; border:1px solid var(--line,rgba(240,232,218,.25)); color:var(--ink,#f0e8da); font:400 13px 'Space Mono','Noto Sans SC',monospace; transition:transform .2s cubic-bezier(.2,.7,.2,1), border-color .25s, box-shadow .3s;" style-hover="transform:translateY(-2px); border-color:var(--accent,#c8803a); box-shadow:0 0 24px var(--spot,rgba(200,128,58,.4))">{{ t.linkBlog }} ↗</a>
       </div>
     </div>
   </div>
@@ -357,11 +363,14 @@ class Component extends DCLogic {
       stat1:'AI MSc', stat1l:'In progress', stat2:'3', stat2l:'Disciplines',
       stat3:'SH', stat3l:'Shanghai', stat4:'∞', stat4l:'Curiosity',
       writeH:'Blog',
-      writeNote:'My tech blog is launching soon — field notes on AI design, frontend craft, and data.',
-      soon:'Coming soon', plan:'PLANNED',
-      topic1:'Designing trust into AI interfaces',
-      topic2:'From notebooks to product: data viz that ships',
-      topic3:'Frontend as a design material',
+      writeNote:'Field notes on AI, LLMs, and the craft of building with data.',
+      allPosts:'All posts', soon:'', plan:'READ →',
+      topic1:'Attention Is All You Need, Eight Years Later',
+      topic2:'EU AI Act: The Hard Problem Isn\'t in the Text',
+      topic3:'What Scaling Laws Actually Said',
+      topicUrl1:'/blog/attention-is-all-you-need-eight-years-later/en/',
+      topicUrl2:'/blog/eu-ai-act-enterprise-reality/en/',
+      topicUrl3:'/blog/what-scaling-laws-actually-said/en/',
       contactH1:"Let's build", contactH2:'something good.',
       contactSub:'Open to AI product design & data roles, collaborations, and good conversations.',
       linkBlog:'Tech Blog', footTag:'Designed & built by Theo',
@@ -384,11 +393,14 @@ class Component extends DCLogic {
       stat1:'TOP商校', stat1l:'ai硕士', stat2:'3', stat2l:'交叉领域',
       stat3:'SH', stat3l:'上海', stat4:'∞', stat4l:'好奇心',
       writeH:'技术博客',
-      writeNote:'技术博客即将上线 —— 关于 AI 产品、LLM 工具的笔记。',
-      soon:'即将上线', plan:'计划中',
-      topic1:'把信任设计进 AI 界面',
-      topic2:'从 Notebook 到产品：能上线的数据可视化',
-      topic3:'把前端当作一种设计材料',
+      writeNote:'关于 AI、大模型与数据工程的实战笔记。',
+      allPosts:'全部文章', soon:'', plan:'阅读 →',
+      topic1:'《注意力就是一切》，八年后再看',
+      topic2:'EU AI Act 最难的问题，不在条文里',
+      topic3:'Scaling Laws 说了什么，没说什么',
+      topicUrl1:'/blog/attention-is-all-you-need-eight-years-later/zh/',
+      topicUrl2:'/blog/eu-ai-act-enterprise-reality/zh/',
+      topicUrl3:'/blog/what-scaling-laws-actually-said/zh/',
       contactH1:'一起做点', contactH2:'好东西',
       contactSub:'对 AI 产品设计、数据相关的工作与合作开放，欢迎交流。',
       linkBlog:'技术博客', footTag:'Theo 设计与开发',
