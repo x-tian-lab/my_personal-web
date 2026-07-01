@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EU AI Act 最难的问题，不在条文里 — 技术手记</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{--accent:#b5692a;--paper:#fff1e5;--ink:#2a2018;--muted:#8a7763;--line:#ecd9c4;--lineS:#c9b295;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Newsreader','Noto Serif SC',Georgia,serif;}
+  a{color:inherit;text-decoration:none;transition:color .2s;} a:hover{color:var(--accent);}
+.util-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 36px;
+  border-bottom:1px solid var(--line);font:400 10.5px 'Space Mono',monospace;letter-spacing:.08em;
+  color:var(--muted);position:sticky;top:0;background:var(--paper);z-index:30;}
+.lang-sw{display:flex;font:700 10px 'Space Mono',monospace;border:1px solid var(--lineS);border-radius:30px;overflow:hidden;}
+.lang-sw a,.lang-sw span{padding:4px 11px;cursor:pointer;transition:.2s;}
+.lang-sw .on{background:var(--accent);color:#fff1e5;} .lang-sw .off{color:#7a6a56;}
+.masthead{text-align:center;padding:18px 36px 16px;border-bottom:2px solid var(--ink);}
+.art-head{max-width:760px;margin:0 auto;padding:48px 28px 26px;text-align:center;}
+.art-h1{margin:0 0 24px;font:600 clamp(34px,5vw,58px)/1.05 'Newsreader','Noto Serif SC',serif;letter-spacing:-.025em;}
+.art-stand{margin:0 auto 28px;max-width:600px;font:400 21px/1.5 'Newsreader','Noto Serif SC',serif;font-style:italic;color:var(--muted);}
+.art-byline{display:flex;align-items:center;justify-content:center;gap:13px;font:400 11px 'Space Mono',monospace;
+  letter-spacing:.06em;color:var(--muted);text-transform:uppercase;padding-bottom:22px;border-bottom:1px solid var(--line);}
+.hero-wrap{max-width:980px;margin:0 auto 14px;padding:0 28px;}
+.hero-inner{position:relative;width:100%;aspect-ratio:21/9;overflow:hidden;}
+.ft-body{max-width:680px;margin:0 auto;padding:34px 28px 20px;}
+.ft-body p{margin:0 0 22px;font:400 19px/1.72 'Newsreader','Noto Serif SC',serif;}
+.ft-drop::first-letter{float:left;font:600 76px/0.74 'Newsreader',serif;padding:8px 12px 0 0;color:var(--accent);}
+.ft-body h2{margin:38px 0 18px;font:600 clamp(24px,2.4vw,30px)/1.2 'Newsreader','Noto Serif SC',serif;letter-spacing:-.01em;}
+.ft-body h3{margin:28px 0 12px;font:600 22px 'Newsreader','Noto Serif SC',serif;color:var(--accent);}
+.ft-body blockquote{margin:40px 0;padding:6px 0 6px 26px;border-left:3px solid var(--accent);}
+.ft-body blockquote p{margin:0;font:500 italic 27px/1.3 'Newsreader','Noto Serif SC',serif;}
+.ft-body a{color:var(--accent);border-bottom:1px solid rgba(181,105,42,.3);}
+.ft-body code{font-family:'Space Mono',monospace;font-size:.83em;background:rgba(181,105,42,.1);padding:2px 6px;border-radius:3px;color:var(--accent);}
+.ft-body pre{background:#f5e9d8;border:1px solid var(--line);border-radius:6px;padding:20px 24px;overflow-x:auto;margin:1.6em 0;}
+.ft-body pre code{background:none;padding:0;color:var(--ink);font-size:.82em;line-height:1.7;}
+.ft-body ul,.ft-body ol{padding-left:1.5em;margin:0 0 22px;}
+.ft-body li{margin-bottom:.4em;font:400 19px/1.6 'Newsreader','Noto Serif SC',serif;}
+.byline-foot{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;align-items:center;gap:14px;}
+.byline-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#c98f5e,#7c4f2c);flex:none;}
+.sub-band{max-width:680px;margin:30px auto 0;padding:0 28px;}
+.sub-inner{border:1px solid var(--lineS);border-radius:10px;padding:26px 28px;background:rgba(181,105,42,.04);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.sub-btn{display:inline-flex;align-items:center;padding:13px 22px;border-radius:9px;background:var(--accent);
+  color:#fff1e5;font:700 12px 'Space Mono',monospace;letter-spacing:.05em;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 3px 7px -1px rgba(0,0,0,.22);}
+.related{max-width:980px;margin:48px auto 0;padding:0 28px 50px;}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 30px;margin-top:20px;}
+.ft-footer{border-top:1px solid var(--ink);padding:16px 36px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;font:400 10.5px 'Space Mono',monospace;
+  letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+@media(max-width:680px){
+  .util-bar{padding:9px 16px;} .art-head{padding:32px 16px 20px;}
+  .ft-body,.sub-band{padding-left:16px;padding-right:16px;} .hero-wrap{padding:0 16px;}
+  .related{padding:0 16px 40px;} .related-grid{grid-template-columns:1fr;} .ft-footer{padding:16px;}
+}
+</style>
+</head>
+<body>
+<div class="util-bar">
+  <a href="/blog/">← 返回博客</a>
+  <span>2026 年 6 月 27 日</span>
+  <div class="lang-sw">
+    <span class="on">中</span>
+    <a href="/blog/eu-ai-act-enterprise-reality/en/" class="off">EN</a>
+  </div>
+</div>
+<div class="masthead">
+  <a href="/blog/" style="font:600 26px/1 'Newsreader','Noto Serif SC',serif;letter-spacing:-.01em;">技术手记</a>
+</div>
+<div class="art-head">
+  <div style="font:700 11px 'Space Mono',monospace;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:22px;">EU-AI-Act</div>
+  <h1 class="art-h1">EU AI Act 最难的问题，不在条文里</h1>
+  <p class="art-stand">EU AI Act 458 页条文可以读懂；真正让人措手不及的，是法规假设企业对 AI 使用有完整掌控，而实际上 IT 团队对最关键的那一层是结构性盲区。</p>
+  <div class="art-byline">
+    <span style="color:var(--ink);">文 吴晓天</span>
+    <span>·</span><span>2026 年 6 月 27 日</span><span>·</span><span>8 分钟</span>
+  </div>
+</div>
+<div class="hero-wrap">
+  <div class="hero-inner"><div style="position:relative;overflow:hidden;width:100%;height:100%;">
+      <img src="https://images.unsplash.com/photo-1594811815859-c354d5afc3dc?w=1280&q=85&fm=jpg" alt="EU-AI-Act" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div></div>
+</div>
+<div class="ft-body">
+<p class="ft-drop">今年二月到四月，我在 EDHEC Ethical AI Start-Up Challenge 里做了一件事：从零开始设计 ComplianceIQ，一个为欧洲大型电信公司构建的 AI 合规分类平台。</p>
+<p>进去之前我以为最难的部分是读懂法规。</p>
+<p>不是。</p>
+<p>EU AI Act 原文 458 页，读起来密但不乱，逻辑是可以理清楚的。真正让你措手不及的，是法规对&quot;企业如何使用 AI&quot;的假设，和实际情况之间的落差。</p>
+<p>以下三件事，是我在做这个项目之前没有真正想清楚的。</p>
+<hr>
+<h2>IT 团队对最关键的那层是盲区</h2>
+<p>企业 IT 基础设施非常擅长监控<strong>行为</strong>，但对 <strong>AI 输出</strong>结构性失明。</p>
+<p>你的组织大概率知道员工在访问哪些网站、哪些 SaaS 工具已经授权、哪些文件被传输到了外部。网络监控、DLP 工具、浏览器日志——这套体系很成熟。</p>
+<p>AI 改变了风险的最小单位，而这套工具没有跟上。</p>
+<p>员工把客户合同粘进 ChatGPT，网络请求是可见的，请求里的内容——机密条款、客户名称、交易细节——不可见。AI 把多个内部来源综合成一份 Word 文档，没有任何监控系统会把这标记成数据事件。信息没有移动，它被<strong>转化</strong>了，而转化的过程是不透明的。</p>
+<p>这个现象现在有名字了：Shadow AI。Menlo Security 2025 年的研究显示，52% 的知识工作者在工作中使用个人 AI 工具，52% 的人会主动向 IT 部门隐瞒这件事。这不是鲁莽，是激励错位下的理性选择——员工立刻享受 AI 带来的效率提升，监管风险由组织承担，不是个人。</p>
+<p>EU AI Act 第 50 条规定了 AI 生成内容的透明度和水印要求，执行日期是 2026 年 12 月 2 日，这是为数不多没有被推迟的条款。但第 50 条处理的是<strong>输出侧</strong>。它没有解决<strong>输入侧</strong>的问题：员工在 IT 体系之外临时使用的 AI 工具，到底在处理什么数据。</p>
+<p>在设计 ComplianceIQ 的检测层时，我们直接撞上了这堵墙。浏览器扩展可以标记员工访问已知 AI 工具的行为，但它无法判断某次 ChatGPT 会话究竟是在写营销邮件还是在处理客户财务数据。这个区别决定了合规风险的级别，而纯技术手段无法做出这个判断。</p>
+<hr>
+<h2>布鲁塞尔后退，是务实，不是软弱</h2>
+<p>2026 年 5 月 7 日，AI Omnibus 把附件三（Annex III）高风险 AI 系统的合规截止日期从 2026 年 8 月推到了 2027 年 12 月——HR、信贷评分、教育、执法等场景的高风险义务多了 16 个月的准备时间。</p>
+<p>行业的第一反应是松了一口气。&quot;布鲁塞尔妥协了&quot;的声音很快出现。</p>
+<p>这个解读不准确，或者说，漏掉了最重要的部分。</p>
+<p>Omnibus 没有削弱 EU AI Act 的实质义务，它推迟了操作层面的截止日期——这两件事不是一回事。2026 年 8 月 2 日生效的主体框架——第 8-15 条，覆盖合格评估、技术文档、人工监督——按计划推进。被推迟的是用例层面的次级义务，因为欧盟委员会承认，这些系统所需的技术标准和行业指引还没准备好，强制推行只会制造表面合规。</p>
+<p>这不是让步，是监管能力的体现。</p>
+<p>还有一层结构性逻辑：如果 2026 年 8 月强制执行，主要结果是欧洲企业大量切换到美国 AI 提供商——Copilot、ChatGPT Enterprise、Claude——因为它们有合规基础设施而欧洲 AI 创业公司没有，那这个执法实际上在削弱欧洲 AI 主权而非保护它。布鲁塞尔效应的机制是让跨国公司在全球采用欧盟标准，而这需要欧洲本土 AI 生态真正运转起来。</p>
+<p>Omnibus 里还加了一条没怎么被报道的内容：第 5 条新增禁止条款，自 2026 年 12 月 2 日起明确禁止 AI 生成或操纵未经当事人同意的真实人物亲密影像。布鲁塞尔在延期的同时，在它认为最关键的方向上收紧了，不是在放宽。</p>
+<p>对正在建设合规基础设施的企业来说，Omnibus 改变了时间线，不是终点。2027 年 12 月比听起来近得多，尤其是从零开始建的时候。</p>
+<hr>
+<h2>治理是基础设施，不是成本中心</h2>
+<p>企业 AI 风险的标准叙事是：AI 带来效率收益，也带来合规风险，所以要权衡。</p>
+<p>这个框架把合规当成了效率收益的抵扣项。更准确的框架是：<strong>未治理的 AI 使用会产生一类特定的运营负债，而治理过的不会</strong>。问题不是要不要在治理上花钱，而是在出事之前还是出事之后花。</p>
+<p>IBM 2024 年的研究给&quot;出事之后&quot;定了价：Shadow AI 相关事件平均每起额外损失 67 万美元。EU AI Act 对违反禁止性条款的罚款上限是 3000 万欧元或全球年营业额的 6%。对着这两个数字，治理基础设施的成本看起来不一样了。</p>
+<p>我在 ComplianceIQ 的建模中遇到的参考场景：一家法国中型资产管理公司，在用 5 个 AI 工具——Copilot、ChatGPT Enterprise、Notion AI、一个文档分析工具和一个投资组合筛选系统。DPO 花了三周时间挨个联系供应商、审查数据处理协议、整理成一张电子表格。没有法条引用，没有司法管辖分析，没有审计记录——这份文档无法经受监管审查。</p>
+<p>ComplianceIQ 处理同一份工具清单——同时跨 EU AI Act、GDPR、DORA 三个框架应用风险评分（ORS = 0.40·R_reg + 0.25·R_data + 0.20·R_gov + 0.15·R_eth）——输出包括：按用例的风险分类、标记出一个数据存储位置未确认的工具、两个工具的数据跨境影响评估要求、符合 ISO/IEC 42001:2023 格式的审计就绪文档。</p>
+<p>三周手动工作和自动化处理的差距，不主要在时间，在输出质量的结构性差异上。</p>
+<p>还有一个被标准框架忽略的维度：FOMO 是风险放大器。想快速部署、慢慢治理，会让企业积累潜在监管负债，最后以数据泄露、监管调查或数据处理披露缺失的方式暴露。几个月内抓住的效率红利，可能要用几年时间去处理法律后果。</p>
+<p>这不是说要放慢 AI 部署，而是要把治理视为基础设施——让 AI 投入可以持续复利，而不是持续积累脆弱性。</p>
+<hr>
+<h2>读完法规还是不知道的三件事</h2>
+<p><strong>风险分类取决于用例，不是工具本身。</strong> 同一个大模型用于内部文档摘要是最低风险，用于支持投资决策是 Annex III 高风险，需要完整的合格评估。合规问题不是&quot;这是什么工具&quot;，而是&quot;这个工具在哪个部门被用来做什么&quot;——这需要持续监控，不是一次性的工具盘点。</p>
+<p><strong>合规义务制造了结构性的信息不对称。</strong> 第 14 条要求高风险 AI 系统支持人工监督。GDPR 第 5(2) 条要求控制者能够证明合规。两者都假设组织对 AI 工具的数据处理方式有详细了解。大多数组织没有，大多数 AI 供应商也没把这些信息做得容易获取。治理缺口，部分是 AI 提供商需要填补的文档和透明度缺口。</p>
+<p><strong>合规不是一种静态状态。</strong> 2026 年 7 月执法生效不是合规旅程的终点，是持续监控义务的起点。工具会更新，用例会演变，新的司法管辖区会加新的要求。现在合规，不代表八月还合规。</p>
+<p>EU AI Act 是认真的立法，追求真实的社会目标：限制算法伤害、保护个人权利、维护人类对高风险自动决策的监督。认真对待这些目标，意味着承认：法规创造了义务，但没有解决落地问题。而落地问题，比条文本身更复杂、更结构性、也更有意思。</p>
+<hr>
+<p><em>本文基于 ComplianceIQ 的研究与原型开发工作，该项目在 EDHEC Ethical AI Start-Up Challenge 2025–2026 中构建，专注于 EU AI Act 框架下企业 AI 系统性合规风险的建模、风险评分分类引擎的设计，以及企业监管风险模拟与审计报告自动化的 SaaS 原型架构。</em></p>
+
+  <div class="byline-foot">
+    <div class="byline-avatar"></div>
+    <div>
+      <div style="font:600 16px 'Newsreader','Noto Serif SC',serif;">吴晓天</div>
+      <div style="font:400 11px 'Space Mono',monospace;color:var(--muted);letter-spacing:.04em;margin-top:3px;">AI · 前端 · 数据</div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-band">
+  <div class="sub-inner">
+    <div style="flex:1;min-width:220px;">
+      <div style="font:600 19px/1.25 'Newsreader','Noto Serif SC',serif;margin-bottom:5px;">喜欢这篇文章？</div>
+      <div style="font:400 12px 'Space Mono',monospace;color:var(--muted);">新文章第一时间送达</div>
+    </div>
+    <span class="sub-btn">订阅 →</span>
+  </div>
+</div>
+<div class="related">
+  <div style="font:700 11px 'Space Mono',monospace;letter-spacing:.16em;color:var(--ink);text-transform:uppercase;display:flex;align-items:center;gap:14px;">
+    <span>相关文章</span><span style="flex:1;height:1px;background:var(--line);"></span>
+  </div>
+  <div class="related-grid"><a href="/blog/attention-is-all-you-need-eight-years-later/zh/" style="display:flex;flex-direction:column;">
+      <div style="position:relative;overflow:hidden;width:100%;aspect-ratio:3/2;margin-bottom:14px;">
+      <img src="https://images.unsplash.com/photo-1555618254-84e2cf498b01?w=1280&q=85&fm=jpg" alt="Transformer" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+      <div style="font:700 10px 'Space Mono',monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">Transformer</div>
+      <h3 style="margin:0 0 9px;font:600 20px/1.2 'Newsreader','Noto Serif SC',serif;">《注意力就是一切》，八年后再看</h3>
+      <div style="margin-top:auto;font:400 10px 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;">2026 年 6 月 30 日</div>
+    </a><a href="/blog/what-scaling-laws-actually-said/zh/" style="display:flex;flex-direction:column;">
+      <div style="position:relative;overflow:hidden;width:100%;aspect-ratio:3/2;margin-bottom:14px;">
+      <img src="https://images.unsplash.com/photo-1782094673136-5198a372980c?w=1280&q=85&fm=jpg" alt="Scaling-Laws" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+      <div style="font:700 10px 'Space Mono',monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">Scaling-Laws</div>
+      <h3 style="margin:0 0 9px;font:600 20px/1.2 'Newsreader','Noto Serif SC',serif;">Scaling Laws 说了什么，没说什么</h3>
+      <div style="margin-top:auto;font:400 10px 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;">2026 年 6 月 30 日</div>
+    </a></div>
+</div>
+<div class="ft-footer">
+  <span>吴晓天 出品 — 个人网站子站</span>
+  <a href="/blog/">← 返回博客</a>
+</div>
+</body></html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The EU AI Act's Hardest Problems Aren't in the Regulation Text — FIELD NOTES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600&family=Space+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{--accent:#b5692a;--paper:#fff1e5;--ink:#2a2018;--muted:#8a7763;--line:#ecd9c4;--lineS:#c9b295;}
+  *{box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Newsreader','Noto Serif SC',Georgia,serif;}
+  a{color:inherit;text-decoration:none;transition:color .2s;} a:hover{color:var(--accent);}
+.util-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 36px;
+  border-bottom:1px solid var(--line);font:400 10.5px 'Space Mono',monospace;letter-spacing:.08em;
+  color:var(--muted);position:sticky;top:0;background:var(--paper);z-index:30;}
+.lang-sw{display:flex;font:700 10px 'Space Mono',monospace;border:1px solid var(--lineS);border-radius:30px;overflow:hidden;}
+.lang-sw a,.lang-sw span{padding:4px 11px;cursor:pointer;transition:.2s;}
+.lang-sw .on{background:var(--accent);color:#fff1e5;} .lang-sw .off{color:#7a6a56;}
+.masthead{text-align:center;padding:18px 36px 16px;border-bottom:2px solid var(--ink);}
+.art-head{max-width:760px;margin:0 auto;padding:48px 28px 26px;text-align:center;}
+.art-h1{margin:0 0 24px;font:600 clamp(34px,5vw,58px)/1.05 'Newsreader','Noto Serif SC',serif;letter-spacing:-.025em;}
+.art-stand{margin:0 auto 28px;max-width:600px;font:400 21px/1.5 'Newsreader','Noto Serif SC',serif;font-style:italic;color:var(--muted);}
+.art-byline{display:flex;align-items:center;justify-content:center;gap:13px;font:400 11px 'Space Mono',monospace;
+  letter-spacing:.06em;color:var(--muted);text-transform:uppercase;padding-bottom:22px;border-bottom:1px solid var(--line);}
+.hero-wrap{max-width:980px;margin:0 auto 14px;padding:0 28px;}
+.hero-inner{position:relative;width:100%;aspect-ratio:21/9;overflow:hidden;}
+.ft-body{max-width:680px;margin:0 auto;padding:34px 28px 20px;}
+.ft-body p{margin:0 0 22px;font:400 19px/1.72 'Newsreader','Noto Serif SC',serif;}
+.ft-drop::first-letter{float:left;font:600 76px/0.74 'Newsreader',serif;padding:8px 12px 0 0;color:var(--accent);}
+.ft-body h2{margin:38px 0 18px;font:600 clamp(24px,2.4vw,30px)/1.2 'Newsreader','Noto Serif SC',serif;letter-spacing:-.01em;}
+.ft-body h3{margin:28px 0 12px;font:600 22px 'Newsreader','Noto Serif SC',serif;color:var(--accent);}
+.ft-body blockquote{margin:40px 0;padding:6px 0 6px 26px;border-left:3px solid var(--accent);}
+.ft-body blockquote p{margin:0;font:500 italic 27px/1.3 'Newsreader','Noto Serif SC',serif;}
+.ft-body a{color:var(--accent);border-bottom:1px solid rgba(181,105,42,.3);}
+.ft-body code{font-family:'Space Mono',monospace;font-size:.83em;background:rgba(181,105,42,.1);padding:2px 6px;border-radius:3px;color:var(--accent);}
+.ft-body pre{background:#f5e9d8;border:1px solid var(--line);border-radius:6px;padding:20px 24px;overflow-x:auto;margin:1.6em 0;}
+.ft-body pre code{background:none;padding:0;color:var(--ink);font-size:.82em;line-height:1.7;}
+.ft-body ul,.ft-body ol{padding-left:1.5em;margin:0 0 22px;}
+.ft-body li{margin-bottom:.4em;font:400 19px/1.6 'Newsreader','Noto Serif SC',serif;}
+.byline-foot{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);display:flex;align-items:center;gap:14px;}
+.byline-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#c98f5e,#7c4f2c);flex:none;}
+.sub-band{max-width:680px;margin:30px auto 0;padding:0 28px;}
+.sub-inner{border:1px solid var(--lineS);border-radius:10px;padding:26px 28px;background:rgba(181,105,42,.04);
+  display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+.sub-btn{display:inline-flex;align-items:center;padding:13px 22px;border-radius:9px;background:var(--accent);
+  color:#fff1e5;font:700 12px 'Space Mono',monospace;letter-spacing:.05em;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38),0 3px 7px -1px rgba(0,0,0,.22);}
+.related{max-width:980px;margin:48px auto 0;padding:0 28px 50px;}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 30px;margin-top:20px;}
+.ft-footer{border-top:1px solid var(--ink);padding:16px 36px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;font:400 10.5px 'Space Mono',monospace;
+  letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+@media(max-width:680px){
+  .util-bar{padding:9px 16px;} .art-head{padding:32px 16px 20px;}
+  .ft-body,.sub-band{padding-left:16px;padding-right:16px;} .hero-wrap{padding:0 16px;}
+  .related{padding:0 16px 40px;} .related-grid{grid-template-columns:1fr;} .ft-footer{padding:16px;}
+}
+</style>
+</head>
+<body>
+<div class="util-bar">
+  <a href="/blog/">← All posts</a>
+  <span>June 27, 2026</span>
+  <div class="lang-sw">
+    <span class="on">EN</span>
+    <a href="/blog/eu-ai-act-enterprise-reality/zh/" class="off">中</a>
+  </div>
+</div>
+<div class="masthead">
+  <a href="/blog/" style="font:600 26px/1 'Newsreader','Noto Serif SC',serif;letter-spacing:-.01em;">FIELD NOTES</a>
+</div>
+<div class="art-head">
+  <div style="font:700 11px 'Space Mono',monospace;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:22px;">EU-AI-Act</div>
+  <h1 class="art-h1">The EU AI Act's Hardest Problems Aren't in the Regulation Text</h1>
+  <p class="art-stand">The regulation is 458 pages and largely navigable. What it doesn't prepare you for is the gap between what it assumes about enterprise AI and how enterprise AI actually works — and that gap is where the compliance risk lives.</p>
+  <div class="art-byline">
+    <span style="color:var(--ink);">By Theo Wu</span>
+    <span>·</span><span>June 27, 2026</span><span>·</span><span>6 min read</span>
+  </div>
+</div>
+<div class="hero-wrap">
+  <div class="hero-inner"><div style="position:relative;overflow:hidden;width:100%;height:100%;">
+      <img src="https://images.unsplash.com/photo-1594811815859-c354d5afc3dc?w=1280&q=85&fm=jpg" alt="EU-AI-Act" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div></div>
+</div>
+<div class="ft-body">
+<p class="ft-drop">I spent February through April 2026 building ComplianceIQ — an AI governance platform for a major European telecom, developed during the EDHEC Ethical AI Start-Up Challenge. I went in assuming the hard part of EU AI Act compliance was understanding the law.</p>
+<p>It isn&#39;t. The regulation — 458 pages, Regulation EU 2024/1689 — is dense but navigable. What it doesn&#39;t prepare you for is the gap between what the regulation <em>assumes</em> about enterprise AI use and what enterprise AI use actually looks like.</p>
+<p>Three things I didn&#39;t fully understand until we started building.</p>
+<hr>
+<h2>Your IT Team Is Blind to What Actually Matters</h2>
+<p>Enterprise IT infrastructure is excellent at monitoring <em>behavior</em> and structurally blind to <em>AI outputs</em>.</p>
+<p>Your organization almost certainly knows which websites employees visit, which SaaS tools are authorized, which files are transferred externally. Network monitoring, DLP tools, browser logs — this layer is mature and comprehensive.</p>
+<p>AI changes the unit of risk in a way these tools don&#39;t address.</p>
+<p>When an employee pastes a client contract into ChatGPT, the network request is visible. The content — the confidential terms, the client name, the transaction details — is not. When an AI synthesizes proprietary sources into a Word document, nothing in the monitoring stack flags that as a data event. The information hasn&#39;t moved; it&#39;s been <em>transformed</em>, and the transformation is invisible.</p>
+<p>This has a name now: Shadow AI. A 2025 Menlo Security study found that 52% of knowledge workers use personal AI tools at work, and 52% actively conceal this from IT. That isn&#39;t recklessness — it&#39;s a rational response to misaligned incentives. Employees capture the productivity benefit immediately. The regulatory exposure sits with the organization, not the individual.</p>
+<p>Article 50 of the EU AI Act — one of the few enforcement dates that hasn&#39;t shifted, effective December 2, 2026 — mandates transparency and watermarking for AI-generated content. But Article 50 addresses the <em>output</em> side. It doesn&#39;t solve the <em>input</em> side: what data flows into the AI tools employees are using ad hoc, outside any IT-sanctioned pipeline.</p>
+<p>When we designed ComplianceIQ&#39;s detection layer, the browser extension could flag when employees accessed known AI tools. What it couldn&#39;t do was classify the <em>specific use</em> in any given session — whether that ChatGPT conversation was drafting a marketing email or processing client financial data. That distinction determines regulatory exposure. It&#39;s the one that technical infrastructure alone cannot make.</p>
+<hr>
+<h2>Brussels&#39; Retreat Signals Pragmatism, Not Weakness</h2>
+<p>On May 7, 2026, the AI Omnibus pushed the compliance deadline for Annex III high-risk systems from August 2026 to December 2027 — sixteen months of additional runway for HR, credit scoring, education, and law enforcement AI obligations.</p>
+<p>The industry reaction was mostly relief. The predictable framing: Brussels blinks, innovation wins.</p>
+<p>That reading misses what actually happened.</p>
+<p>The Omnibus didn&#39;t weaken the substantive obligations of the Act. It delayed their operational deadline — a meaningful distinction. The August 2, 2026 activation of Articles 8–15 (conformity assessment, technical documentation, human oversight) proceeds on schedule. What moved was the secondary layer of use-case obligations, because the Commission acknowledged the technical standards required for compliance weren&#39;t ready in time for organizations to actually comply.</p>
+<p>That&#39;s not capitulation. That&#39;s regulatory competence.</p>
+<p>There&#39;s also structural logic in the delay. If strict enforcement in August 2026 primarily results in European enterprises choosing American AI providers — Copilot, ChatGPT Enterprise, Claude — because those providers have compliance infrastructure and European AI startups don&#39;t, then enforcement actually undermines European AI sovereignty. The Brussels Effect works by exporting regulatory standards globally as multinationals adopt EU-level compliance everywhere they operate. That mechanism requires a viable European AI sector to function.</p>
+<p>The Omnibus also added something that received less coverage than the delay: a new prohibition under Article 5, effective December 2, 2026, explicitly banning AI systems that generate or manipulate realistic intimate depictions of real people without consent. Brussels wasn&#39;t softening the regulation — it was recalibrating enforcement focus toward what&#39;s both most harmful and most operationally feasible.</p>
+<p>For enterprises we were modeling for, the Omnibus changes the timeline, not the destination. December 2027 is eighteen months closer than it sounds when you&#39;re building governance infrastructure from scratch.</p>
+<hr>
+<h2>Governance Is Infrastructure, Not Overhead</h2>
+<p>The standard enterprise AI risk framing: adoption creates efficiency gains but also regulatory exposure, so balance the benefits against the costs.</p>
+<p>That framing treats compliance as a cost that partially offsets the efficiency benefit. The more useful frame: <em>ungoverned AI adoption creates a specific class of liability that governed adoption doesn&#39;t</em>, and the question isn&#39;t whether to spend on governance but whether to spend before or after an incident.</p>
+<p>IBM&#39;s 2024 research puts a number on the &quot;after&quot;: $670,000 in additional breach costs per Shadow AI incident. EU AI Act violations carry penalties up to €30 million or 6% of global annual revenue. Against those numbers, governance infrastructure looks different.</p>
+<p>The reference scenario that clarified this most sharply: a mid-market French asset management firm managing five AI tools in active use — Copilot, ChatGPT Enterprise, Notion AI, a document analysis tool, a portfolio screening system. The DPO had spent three weeks manually contacting vendors and building a spreadsheet. No regulatory article citations, no jurisdiction-level analysis, no audit trail. Legally indefensible.</p>
+<p>When ComplianceIQ processed the same inventory — applying our risk formula (ORS = 0.40·R_reg + 0.25·R_data + 0.20·R_gov + 0.15·R_eth) across EU AI Act, GDPR, and DORA simultaneously — the output included use-case risk classifications, a data sovereignty map flagging one tool with unconfirmed EU data residency, Transfer Impact Assessment requirements for two tools, and ISO/IEC 42001:2023-aligned documentation ready for regulatory submission. Something a regulator could actually evaluate.</p>
+<p>The structural difference in output quality mattered more than the time savings.</p>
+<p>One more dimension the standard framing misses: FOMO as a risk amplifier. Pressure to deploy AI quickly and govern slowly means organizations accumulate latent liability that surfaces as a breach, a regulatory inquiry, or a disclosure failure. The productivity captured in months becomes a liability that takes years to resolve.</p>
+<p>This doesn&#39;t argue for slowing AI adoption. It argues for treating governance as infrastructure — something that enables adoption to compound rather than accumulate fragility.</p>
+<hr>
+<h2>Three Things the Text Won&#39;t Tell You</h2>
+<p><strong>Risk classification is use-case-dependent, not tool-dependent.</strong> The same LLM used for internal document summarization is Minimal Risk. The same model used to support investment decisions is High Risk under Annex III. The compliance question isn&#39;t &quot;what tool is this?&quot; — it&#39;s &quot;what is this tool being used for in this department?&quot; That requires active monitoring infrastructure, not a one-time inventory.</p>
+<p><strong>The compliance burden creates a structural information asymmetry.</strong> Article 14 requires high-risk AI systems to enable human oversight. GDPR Article 5(2) requires controllers to demonstrate compliance. Both assume organizations have detailed knowledge of how their AI tools process data. Most don&#39;t, and most AI vendors don&#39;t make it easily accessible. The governance gap is partly a documentation and transparency gap that AI providers need to close.</p>
+<p><strong>Compliance is not a static state.</strong> The July 2026 enforcement activation isn&#39;t the end of the compliance journey — it&#39;s the beginning of a continuous monitoring obligation. Tools get updated. Use cases evolve. New jurisdictions add requirements. What&#39;s compliant in January may not be compliant in August.</p>
+<p>The EU AI Act is serious legislation pursuing real goals: limiting algorithmic harm, protecting individual rights, preserving human oversight of consequential decisions. Taking those goals seriously means understanding that the regulation creates the obligation but doesn&#39;t solve the implementation problem. That problem is harder, more structural, and more interesting than the text suggests.</p>
+<hr>
+<p><em>This piece draws on research and prototype development from ComplianceIQ, built during the EDHEC Ethical AI Start-Up Challenge 2025–2026, where we modeled systemic AI compliance risks, built a risk-scoring classification engine, and architected a SaaS prototype to simulate enterprise regulatory exposure and automate audit reporting.</em></p>
+
+  <div class="byline-foot">
+    <div class="byline-avatar"></div>
+    <div>
+      <div style="font:600 16px 'Newsreader','Noto Serif SC',serif;">Theo Wu</div>
+      <div style="font:400 11px 'Space Mono',monospace;color:var(--muted);letter-spacing:.04em;margin-top:3px;">AI · Frontend · Data</div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-band">
+  <div class="sub-inner">
+    <div style="flex:1;min-width:220px;">
+      <div style="font:600 19px/1.25 'Newsreader','Noto Serif SC',serif;margin-bottom:5px;">Enjoy this piece?</div>
+      <div style="font:400 12px 'Space Mono',monospace;color:var(--muted);">New posts delivered first</div>
+    </div>
+    <span class="sub-btn">Subscribe →</span>
+  </div>
+</div>
+<div class="related">
+  <div style="font:700 11px 'Space Mono',monospace;letter-spacing:.16em;color:var(--ink);text-transform:uppercase;display:flex;align-items:center;gap:14px;">
+    <span>MORE FROM THE BLOG</span><span style="flex:1;height:1px;background:var(--line);"></span>
+  </div>
+  <div class="related-grid"><a href="/blog/attention-is-all-you-need-eight-years-later/en/" style="display:flex;flex-direction:column;">
+      <div style="position:relative;overflow:hidden;width:100%;aspect-ratio:3/2;margin-bottom:14px;">
+      <img src="https://images.unsplash.com/photo-1555618254-84e2cf498b01?w=1280&q=85&fm=jpg" alt="transformer" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+      <div style="font:700 10px 'Space Mono',monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">transformer</div>
+      <h3 style="margin:0 0 9px;font:600 20px/1.2 'Newsreader','Noto Serif SC',serif;">Attention Is All You Need, Eight Years Later</h3>
+      <div style="margin-top:auto;font:400 10px 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;">June 30, 2026</div>
+    </a><a href="/blog/what-scaling-laws-actually-said/en/" style="display:flex;flex-direction:column;">
+      <div style="position:relative;overflow:hidden;width:100%;aspect-ratio:3/2;margin-bottom:14px;">
+      <img src="https://images.unsplash.com/photo-1782094673136-5198a372980c?w=1280&q=85&fm=jpg" alt="scaling-laws" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+      <div style="font:700 10px 'Space Mono',monospace;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">scaling-laws</div>
+      <h3 style="margin:0 0 9px;font:600 20px/1.2 'Newsreader','Noto Serif SC',serif;">What the Scaling Laws Paper Actually Said</h3>
+      <div style="margin-top:auto;font:400 10px 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;">June 30, 2026</div>
+    </a></div>
+</div>
+<div class="ft-footer">
+  <span>Built by Theo Wu — a sub-site of the portfolio</span>
+  <a href="/blog/">← All posts</a>
+</div>
+</body></html>
